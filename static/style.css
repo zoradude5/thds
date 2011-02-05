@@ -5,3 +5,12 @@
 #children {
 	padding-left: 20px;
 }
+
+.entry {
+	width: 300px;
+	border: black 1px solid;
+}
+
+.entry a {
+	font-size: 80%;
+}
