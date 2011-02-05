@@ -4,10 +4,12 @@
 
 #children {
 	padding-left: 20px;
+	margin-right: 2px;
 }
 
 .entry {
-	width: 300px;
+	padding: 3px;
+	max-width: 400px;
 	border: black 1px solid;
 }
 

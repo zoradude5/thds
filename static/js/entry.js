@@ -1,16 +1,27 @@
 Entry = function(parent) {
-	this.dom = $('#orig').find('.entry').clone().appendTo(parent);
-	this.hiddenReply = true;
+	this.dom = $('#orig').find('.entry').clone().prependTo(parent);
+	//this.hiddenReply = true;
+	//this.hiddenChildren = false;
 	this.bindEvents();
+	this.text = this.dom.find('#text');
+	this.children = this.dom.find('#children');
+	this.reply = this.dom.find('#reply');
 }
 
 Entry.prototype.bindEvents = function() {
 	var self = this;
-	this.dom.find('#reply_toggle').click(function() {
-		self.toggleReply();
+	this.dom.find('#toggle_reply').click(function() {
+		self.reply.toggle();
 	});
 	this.dom.find('#submit').click(function() {
-		self.addChild(self.dom.find('#text').val());
+		if(self.text.val()) {
+			self.addChild(self.text.val());
+			self.children.show();
+			self.text.val("");
+		}
+	});
+	this.dom.find('#toggle_children').click(function() {
+		self.children.toggle();
 	});
 
 
@@ -21,11 +32,22 @@ Entry.prototype.setContent = function(content) {
 }
 
 Entry.prototype.addChild = function(content) {
-	e = new Entry(this.dom.find('#children'));
+	e = new Entry(this.children);
 	e.setContent(content);
 }
 
-Entry.prototype.toggleReply = function() {
+Entry.prototype.ztoggleChildren = function() {
+	if(this.hiddenChildren) {
+		this.children.show();
+		this.hiddenChildren = false;
+	}
+	else {
+		this.children.hide();
+		this.hiddenChildren = true;
+	}
+
+}
+Entry.prototype.ztoggleReply = function() {
 	if(this.hiddenReply) {
 		this.dom.find('#reply').show();
 		this.hiddenReply = false;
